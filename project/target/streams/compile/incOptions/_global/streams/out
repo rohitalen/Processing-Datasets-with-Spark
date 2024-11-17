@@ -1,0 +1,5 @@
+[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = /afs/inf.ed.ac.uk/user/s22/s2210057/Desktop/PDSS/CW2-Template/project/target/scala-2.12/sbt-1.0/classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = /afs/inf.ed.ac.uk/user/s22/s2210057/Desktop/PDSS/CW2-Template/project/target/scala-2.12/sbt-1.0/classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: /afs/inf.ed.ac.uk/user/s22/s2210057/Desktop/PDSS/CW2-Template/project/target/scala-2.12/sbt-1.0/classes.bak[0m

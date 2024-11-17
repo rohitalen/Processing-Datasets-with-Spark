@@ -59,7 +59,44 @@ object ImdbSpark {
     // TODO: Implement this task
     // Expected output example:
     // List((Drama,3504), (Documentary,2883), (Comedy,2439), (Horror,909), (Thriller,854))
-    ???
+    rdd
+    // Step 1: Filter titles
+    .filter(title =>
+      title.startYear.isDefined &&
+      (title.titleType.contains("movie") || title.titleType.contains("tvSeries")) &&
+      title.genres.isDefined
+    )
+    // Step 2: Map each genre to a (genre, timePeriod) pair with a count of 1
+    .flatMap(title => {
+      val period = title.startYear.get match {
+        case year if 1990 <= year && year <= 2000 => Some("1990-2000")
+        case year if 2010 <= year && year <= 2020 => Some("2010-2020")
+        case _ => None
+      }
+      period match {
+        case Some(p) => title.genres.get.map(genre => ((genre, p), 1))
+        case None => Seq.empty
+      }
+    })
+    // Step 3: Aggregate counts
+    .reduceByKey(_ + _)
+    // Step 4: Transform to (genre, (count1990_2000, count2010_2020))
+    .map { case ((genre, period), count) =>
+      (genre, period match {
+        case "1990-2000" => (count, 0)
+        case "2010-2020" => (0, count)
+      })
+    }
+    .reduceByKey((a, b) => (a._1 + b._1, a._2 + b._2)) // Combine counts for each genre
+    // Step 5: Calculate growth
+    .mapValues { case (count1990_2000, count2010_2020) =>
+      count2010_2020 - count1990_2000
+    }
+    // Step 6: Sort and limit to top 5 genres
+    .sortBy(_._2, ascending = false)
+    .zipWithIndex() // Add index to retain top 5
+    .filter(_._2 < 5) // Filter only the top 5
+    .map(_._1) // Remove the index
   }
 
   /**

@@ -1,0 +1,10 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(test, Some(40824b0c-2529-4b83-8bcc-1a249c27b29e), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / test[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[33mwarn[0m] [0m[0mjavaOptions will be ignored, fork is set to false[0m
+[0m[[0m[33mwarn[0m] [0m[0mIn the last 3 seconds, 7.316 (307.9%) were spent in GC. [Heap: 7.75GB free of 7.99GB, max 7.99GB] Consider increasing the JVM heap using `-Xmx` or try a different collector, e.g. `-XX:+UseG1GC`, for better performance.[0m
+[0m[[0m[31merror[0m] [0m[0mCaught java.lang.OutOfMemoryError: Metaspace[0m
+[0m[[0m[31merror[0m] [0m[0mTo best utilize classloader caching and to prevent file handle leaks, we recommend running sbt without a MaxMetaspaceSize limit.  If this error occurred during a test or run evaluation, it can be caused by the choice of ClassLoaderLayeringStrategy. Of the available strategies, ClassLoaderLayeringStrategy.ScalaLibrary will typically use the least metaspace.  To change the layering strategy for this session, run:[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0mset ThisBuild / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.ScalaLibrary[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
