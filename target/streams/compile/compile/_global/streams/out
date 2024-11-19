@@ -1,5 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m/afs/inf.ed.ac.uk/user/s22/s2210057/Desktop/PDSS/CW2-Template/src/main/scala/ImdbSpark.scala:100:6: value toRDD is not a member of Seq[(String, Int)][0m
-[0m[[0m[31merror[0m] [0m[0mpossible cause: maybe a semicolon is missing before `value toRDD'?[0m
-[0m[[0m[31merror[0m] [0m[0m    .toRDD(rdd.sparkContext)[0m
-[0m[[0m[31merror[0m] [0m[0m     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/afs/inf.ed.ac.uk/user/s22/s2210057/Desktop/PDSS/CW2-Template/src/main/scala/ImdbSpark.scala:250:1: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : org.apache.spark.rdd.RDD[(Option[String], Float)][0m
+[0m[[0m[31merror[0m] [0m[0m required: org.apache.spark.rdd.RDD[(String, Float)][0m
+[0m[[0m[31merror[0m] [0m[0mtopDirectorsRDD[0m
+[0m[[0m[31merror[0m] [0m[0m^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

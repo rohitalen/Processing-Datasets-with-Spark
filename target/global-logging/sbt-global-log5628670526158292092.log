@@ -1,0 +1,6 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(compile, Some(86fd2eae-898c-4326-ad4c-59ba3d9dcd41), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / compile[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[32msuccess[0m] [0m[0mTotal time: 0 s, completed 17-Nov-2024 17:12:29[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
+[0m[[0m[31merror[0m] [0m[0mserver failed to start on local:///afs/inf.ed.ac.uk/user/s22/s2210057/.sbt/1.0/server/a63029813fa080009bf2/sock. java.io.IOException: org.scalasbt.ipcsocket.NativeErrorException: [1] Operation not permitted[0m

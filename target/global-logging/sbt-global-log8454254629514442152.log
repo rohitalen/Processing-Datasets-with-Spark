@@ -13,3 +13,5 @@
 [0m[[0m[31merror[0m] [0m[0mTotal time: 2 s, completed 17-Nov-2024 16:39:29[0m
 [0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
 [0m[[0m[31merror[0m] [0m[0mserver failed to start on local:///afs/inf.ed.ac.uk/user/s22/s2210057/.sbt/1.0/server/a63029813fa080009bf2/sock. java.io.IOException: org.scalasbt.ipcsocket.NativeErrorException: [1] Operation not permitted[0m
+[0m[[0m[0mdebug[0m] [0m[0mForcing garbage collection...[0m
+[0m[[0m[33mwarn[0m] [0m[0mIn the last 5480 seconds, 10.163 (0.2%) were spent in GC. [Heap: 6.59GB free of 6.79GB, max 7.11GB] Consider increasing the JVM heap using `-Xmx` or try a different collector, e.g. `-XX:+UseG1GC`, for better performance.[0m

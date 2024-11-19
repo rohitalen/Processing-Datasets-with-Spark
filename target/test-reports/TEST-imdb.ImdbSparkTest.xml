@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<testsuite hostname="femes.inf.ed.ac.uk" name="imdb.ImdbSparkTest" tests="4" errors="0" failures="3" skipped="0" time="0.526" timestamp="2024-11-17T16:39:27">
+<testsuite hostname="shrek.inf.ed.ac.uk" name="imdb.ImdbSparkTest" tests="4" errors="0" failures="2" skipped="0" time="3.637" timestamp="2024-11-19T16:56:04">
           <properties>
       <property name="jline.esc.timeout" value="0"/><property name="jna.platform.library.path" value="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/lib64:/lib64:/usr/lib:/lib:/lib32:/opt/nrf-command-line-tools/lib:/usr/lib64/digilent/adept:/usr/lib/x86_64-linux-gnu/libfakeroot"/><property name="java.runtime.name" value="OpenJDK Runtime Environment"/><property name="sun.boot.library.path" value="/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/amd64"/><property name="java.vm.version" value="25.392-b08"/><property name="java.vm.vendor" value="Temurin"/><property name="java.vendor.url" value="https://adoptium.net/"/><property name="path.separator" value=":"/><property name="jna.loaded" value="true"/><property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/><property name="file.encoding.pkg" value="sun.io"/><property name="user.country" value="GB"/><property name="sun.java.launcher" value="SUN_STANDARD"/><property name="sun.os.patch.level" value="unknown"/><property name="jna.nosys" value="true"/><property name="java.vm.specification.name" value="Java Virtual Machine Specification"/><property name="user.dir" value="/afs/inf.ed.ac.uk/user/s22/s2210057/Desktop/PDSS/CW2-Template"/><property name="java.runtime.version" value="1.8.0_392-b08"/><property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/><property name="java.endorsed.dirs" value="/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/endorsed"/><property name="os.arch" value="amd64"/><property name="java.io.tmpdir" value="/tmp"/><property name="line.separator" value="
-"/><property name="java.vm.specification.vendor" value="Oracle Corporation"/><property name="log4j.ignoreTCL" value="true"/><property name="os.name" value="Linux"/><property name="sun.jnu.encoding" value="UTF-8"/><property name="jnidispatch.path" value="/afs/inf.ed.ac.uk/user/s22/s2210057/.cache/JNA/temp/jna9042602197141016101.tmp"/><property name="jetty.git.hash" value="b881a572662e1943a14ae12e7e1207989f218b74"/><property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/><property name="sun.nio.ch.bugLevel" value=""/><property name="java.specification.name" value="Java Platform API Specification"/><property name="java.class.version" value="52.0"/><property name="sbt.ipcsocket.tmpdir" value="/run/user/2574990/.sbte389d05b/ipcsocket"/><property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/><property name="os.version" value="5.15.0-119-generic"/><property name="swoval.tmpdir" value="/run/user/2574990/.sbte389d05b/swoval"/><property name="user.home" value="/afs/inf.ed.ac.uk/user/s22/s2210057"/><property name="user.timezone" value="Europe/London"/><property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/><property name="file.encoding" value="UTF-8"/><property name="java.specification.version" value="1.8"/><property name="java.class.path" value="/afs/inf.ed.ac.uk/user/s22/s2210057/.cache/sbt/boot/sbt-launch/1.9.6/sbt-launch-1.9.6.jar"/><property name="user.name" value="s2210057"/><property name="jline.shutdownhook" value="false"/><property name="java.vm.specification.version" value="1.8"/><property name="sun.java.command" value="/afs/inf.ed.ac.uk/user/s22/s2210057/.cache/sbt/boot/sbt-launch/1.9.6/sbt-launch-1.9.6.jar"/><property name="java.home" value="/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre"/><property name="sun.arch.data.model" value="64"/><property name="user.language" value="en"/><property name="java.specification.vendor" value="Oracle Corporation"/><property name="awt.toolkit" value="sun.awt.X11.XToolkit"/><property name="java.vm.info" value="mixed mode"/><property name="java.version" value="1.8.0_392"/><property name="java.ext.dirs" value="/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/ext:/usr/java/packages/lib/ext"/><property name="sun.boot.class.path" value="/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/resources.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/rt.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/sunrsasign.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/jsse.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/jce.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/charsets.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/jfr.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/classes"/><property name="java.vendor" value="Temurin"/><property name="java.specification.maintenance.version" value="5"/><property name="file.separator" value="/"/><property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/><property name="sun.io.unicode.encoding" value="UnicodeLittle"/><property name="sun.cpu.endian" value="little"/><property name="sbt.script" value="/usr/bin/sbt"/><property name="sun.cpu.isalist" value=""/>
+"/><property name="java.vm.specification.vendor" value="Oracle Corporation"/><property name="log4j.ignoreTCL" value="true"/><property name="os.name" value="Linux"/><property name="sun.jnu.encoding" value="UTF-8"/><property name="jnidispatch.path" value="/afs/inf.ed.ac.uk/user/s22/s2210057/.cache/JNA/temp/jna3021261704067403540.tmp"/><property name="jetty.git.hash" value="b881a572662e1943a14ae12e7e1207989f218b74"/><property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/><property name="sun.nio.ch.bugLevel" value=""/><property name="java.specification.name" value="Java Platform API Specification"/><property name="java.class.version" value="52.0"/><property name="sbt.ipcsocket.tmpdir" value="/run/user/2574990/.sbte389d05b/ipcsocket"/><property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/><property name="os.version" value="5.15.0-119-generic"/><property name="swoval.tmpdir" value="/run/user/2574990/.sbte389d05b/swoval"/><property name="user.home" value="/afs/inf.ed.ac.uk/user/s22/s2210057"/><property name="user.timezone" value="Europe/London"/><property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/><property name="file.encoding" value="UTF-8"/><property name="java.specification.version" value="1.8"/><property name="java.class.path" value="/afs/inf.ed.ac.uk/user/s22/s2210057/.cache/sbt/boot/sbt-launch/1.9.6/sbt-launch-1.9.6.jar"/><property name="user.name" value="s2210057"/><property name="jline.shutdownhook" value="false"/><property name="java.vm.specification.version" value="1.8"/><property name="sun.java.command" value="/afs/inf.ed.ac.uk/user/s22/s2210057/.cache/sbt/boot/sbt-launch/1.9.6/sbt-launch-1.9.6.jar"/><property name="java.home" value="/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre"/><property name="sun.arch.data.model" value="64"/><property name="user.language" value="en"/><property name="java.specification.vendor" value="Oracle Corporation"/><property name="awt.toolkit" value="sun.awt.X11.XToolkit"/><property name="java.vm.info" value="mixed mode"/><property name="java.version" value="1.8.0_392"/><property name="java.ext.dirs" value="/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/ext:/usr/java/packages/lib/ext"/><property name="sun.boot.class.path" value="/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/resources.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/rt.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/sunrsasign.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/jsse.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/jce.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/charsets.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/lib/jfr.jar:/afs/inf.ed.ac.uk/user/s22/s2210057/java8/jre/classes"/><property name="java.vendor" value="Temurin"/><property name="java.specification.maintenance.version" value="5"/><property name="file.separator" value="/"/><property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/><property name="sun.io.unicode.encoding" value="UnicodeLittle"/><property name="sun.cpu.endian" value="little"/><property name="sbt.script" value="/usr/bin/sbt"/><property name="sun.cpu.isalist" value=""/>
     </properties>
-          <testcase classname="imdb.ImdbSparkTest" name="Task1: Genre Growth Analysis should find the correct top 5 genres with growth" time="0.525">
+          <testcase classname="imdb.ImdbSparkTest" name="Task1: Genre Growth Analysis should find the correct top 5 genres with growth" time="0.581">
                       
-                    </testcase><testcase classname="imdb.ImdbSparkTest" name="Task2: Genre Ratings by Decade should calculate correct weighted averages per decade" time="0.001">
-                      <failure message="an implementation is missing" type="scala.NotImplementedError">scala.NotImplementedError: an implementation is missing
-	at scala.Predef$.$qmark$qmark$qmark(Predef.scala:288)
-	at imdb.ImdbSpark$.task2(ImdbSpark.scala:115)
-	at imdb.ImdbSparkTest.$anonfun$new$3(ImdbSparkTest.scala:95)
+                    </testcase><testcase classname="imdb.ImdbSparkTest" name="Task2: Genre Ratings by Decade should calculate correct weighted averages per decade" time="1.813">
+                      <failure message="12 was not equal to 13" type="org.scalatest.exceptions.TestFailedException">org.scalatest.exceptions.TestFailedException: 12 was not equal to 13
+	at org.scalatest.matchers.MatchersHelper$.indicateFailure(MatchersHelper.scala:402)
+	at org.scalatest.matchers.should.Matchers$AnyShouldWrapper.shouldBe(Matchers.scala:7021)
+	at imdb.ImdbSparkTest.$anonfun$new$3(ImdbSparkTest.scala:131)
 	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
 	at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)
 	at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)
@@ -77,81 +77,12 @@
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:750)
 </failure>
-                    </testcase><testcase classname="imdb.ImdbSparkTest" name="Task3: Top Directors should find directors with highest rated films" time="0.0">
-                      <failure message="an implementation is missing" type="scala.NotImplementedError">scala.NotImplementedError: an implementation is missing
-	at scala.Predef$.$qmark$qmark$qmark(Predef.scala:288)
-	at imdb.ImdbSpark$.task3(ImdbSpark.scala:131)
-	at imdb.ImdbSparkTest.$anonfun$new$8(ImdbSparkTest.scala:149)
-	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
-	at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)
-	at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)
-	at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)
-	at org.scalatest.Transformer.apply(Transformer.scala:22)
-	at org.scalatest.Transformer.apply(Transformer.scala:20)
-	at org.scalatest.flatspec.AnyFlatSpecLike$$anon$5.apply(AnyFlatSpecLike.scala:1812)
-	at org.scalatest.TestSuite.withFixture(TestSuite.scala:196)
-	at org.scalatest.TestSuite.withFixture$(TestSuite.scala:195)
-	at org.scalatest.flatspec.AnyFlatSpec.withFixture(AnyFlatSpec.scala:1685)
-	at org.scalatest.flatspec.AnyFlatSpecLike.invokeWithFixture$1(AnyFlatSpecLike.scala:1810)
-	at org.scalatest.flatspec.AnyFlatSpecLike.$anonfun$runTest$1(AnyFlatSpecLike.scala:1822)
-	at org.scalatest.SuperEngine.runTestImpl(Engine.scala:306)
-	at org.scalatest.flatspec.AnyFlatSpecLike.runTest(AnyFlatSpecLike.scala:1822)
-	at org.scalatest.flatspec.AnyFlatSpecLike.runTest$(AnyFlatSpecLike.scala:1804)
-	at org.scalatest.flatspec.AnyFlatSpec.runTest(AnyFlatSpec.scala:1685)
-	at org.scalatest.flatspec.AnyFlatSpecLike.$anonfun$runTests$1(AnyFlatSpecLike.scala:1880)
-	at org.scalatest.SuperEngine.$anonfun$runTestsInBranch$1(Engine.scala:413)
-	at scala.collection.immutable.List.foreach(List.scala:431)
-	at org.scalatest.SuperEngine.traverseSubNodes$1(Engine.scala:401)
-	at org.scalatest.SuperEngine.runTestsInBranch(Engine.scala:390)
-	at org.scalatest.SuperEngine.$anonfun$runTestsInBranch$1(Engine.scala:427)
-	at scala.collection.immutable.List.foreach(List.scala:431)
-	at org.scalatest.SuperEngine.traverseSubNodes$1(Engine.scala:401)
-	at org.scalatest.SuperEngine.runTestsInBranch(Engine.scala:396)
-	at org.scalatest.SuperEngine.runTestsImpl(Engine.scala:475)
-	at org.scalatest.flatspec.AnyFlatSpecLike.runTests(AnyFlatSpecLike.scala:1880)
-	at org.scalatest.flatspec.AnyFlatSpecLike.runTests$(AnyFlatSpecLike.scala:1879)
-	at org.scalatest.flatspec.AnyFlatSpec.runTests(AnyFlatSpec.scala:1685)
-	at org.scalatest.Suite.run(Suite.scala:1112)
-	at org.scalatest.Suite.run$(Suite.scala:1094)
-	at org.scalatest.flatspec.AnyFlatSpec.org$scalatest$flatspec$AnyFlatSpecLike$$super$run(AnyFlatSpec.scala:1685)
-	at org.scalatest.flatspec.AnyFlatSpecLike.$anonfun$run$1(AnyFlatSpecLike.scala:1925)
-	at org.scalatest.SuperEngine.runImpl(Engine.scala:535)
-	at org.scalatest.flatspec.AnyFlatSpecLike.run(AnyFlatSpecLike.scala:1925)
-	at org.scalatest.flatspec.AnyFlatSpecLike.run$(AnyFlatSpecLike.scala:1923)
-	at imdb.ImdbSparkTest.org$scalatest$BeforeAndAfterAll$$super$run(ImdbSparkTest.scala:8)
-	at org.scalatest.BeforeAndAfterAll.liftedTree1$1(BeforeAndAfterAll.scala:213)
-	at org.scalatest.BeforeAndAfterAll.run(BeforeAndAfterAll.scala:210)
-	at org.scalatest.BeforeAndAfterAll.run$(BeforeAndAfterAll.scala:208)
-	at imdb.ImdbSparkTest.run(ImdbSparkTest.scala:8)
-	at org.scalatest.tools.Framework.org$scalatest$tools$Framework$$runSuite(Framework.scala:318)
-	at org.scalatest.tools.Framework$ScalaTestTask.execute(Framework.scala:513)
-	at sbt.TestRunner.runTest$1(TestFramework.scala:153)
-	at sbt.TestRunner.run(TestFramework.scala:168)
-	at sbt.TestFramework$$anon$3$$anonfun$$lessinit$greater$1.$anonfun$apply$1(TestFramework.scala:336)
-	at sbt.TestFramework$.sbt$TestFramework$$withContextLoader(TestFramework.scala:296)
-	at sbt.TestFramework$$anon$3$$anonfun$$lessinit$greater$1.apply(TestFramework.scala:336)
-	at sbt.TestFramework$$anon$3$$anonfun$$lessinit$greater$1.apply(TestFramework.scala:336)
-	at sbt.TestFunction.apply(TestFramework.scala:348)
-	at sbt.Tests$.$anonfun$toTask$1(Tests.scala:436)
-	at sbt.std.Transform$$anon$3.$anonfun$apply$2(Transform.scala:47)
-	at sbt.std.Transform$$anon$4.work(Transform.scala:69)
-	at sbt.Execute.$anonfun$submit$2(Execute.scala:283)
-	at sbt.internal.util.ErrorHandling$.wideConvert(ErrorHandling.scala:24)
-	at sbt.Execute.work(Execute.scala:292)
-	at sbt.Execute.$anonfun$submit$1(Execute.scala:283)
-	at sbt.ConcurrentRestrictions$$anon$4.$anonfun$submitValid$1(ConcurrentRestrictions.scala:265)
-	at sbt.CompletionService$$anon$2.call(CompletionService.scala:65)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:750)
-</failure>
+                    </testcase><testcase classname="imdb.ImdbSparkTest" name="Task3: Top Directors should find directors with highest rated films" time="1.243">
+                      
                     </testcase><testcase classname="imdb.ImdbSparkTest" name="Task4: Prolific Crew Members should identify top contributors across time periods and sort alphabetically when counts are the same" time="0.0">
                       <failure message="an implementation is missing" type="scala.NotImplementedError">scala.NotImplementedError: an implementation is missing
 	at scala.Predef$.$qmark$qmark$qmark(Predef.scala:288)
-	at imdb.ImdbSpark$.task4(ImdbSpark.scala:147)
+	at imdb.ImdbSpark$.task4(ImdbSpark.scala:271)
 	at imdb.ImdbSparkTest.$anonfun$new$11(ImdbSparkTest.scala:197)
 	at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)
 	at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)

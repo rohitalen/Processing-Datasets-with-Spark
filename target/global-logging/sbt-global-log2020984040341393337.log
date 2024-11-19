@@ -1,0 +1,14 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(test, Some(2ef3a304-756f-426d-886f-9cb7bbed1e5c), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / test[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /afs/inf.ed.ac.uk/user/s22/s2210057/Desktop/PDSS/CW2-Template/target/scala-2.12/classes ...[0m
+[0m[[0m[31merror[0m] [0m[0m/afs/inf.ed.ac.uk/user/s22/s2210057/Desktop/PDSS/CW2-Template/src/main/scala/ImdbSpark.scala:100:6: value toRDD is not a member of Seq[(String, Int)][0m
+[0m[[0m[31merror[0m] [0m[0mpossible cause: maybe a semicolon is missing before `value toRDD'?[0m
+[0m[[0m[31merror[0m] [0m[0m    .toRDD(rdd.sparkContext)  // Convert to RDD using parallelize[0m
+[0m[[0m[31merror[0m] [0m[0m     ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) Compilation failed[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 3 s, completed 17-Nov-2024 16:48:29[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
+[0m[[0m[31merror[0m] [0m[0mserver failed to start on local:///afs/inf.ed.ac.uk/user/s22/s2210057/.sbt/1.0/server/a63029813fa080009bf2/sock. java.io.IOException: org.scalasbt.ipcsocket.NativeErrorException: [1] Operation not permitted[0m
+[0m[[0m[0mdebug[0m] [0m[0mForcing garbage collection...[0m
