@@ -1,0 +1,13 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(test, Some(d7fed5a9-af88-4f25-920b-a298b21f7348), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / test[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[31merror[0m] [0m[0mCaught java.lang.OutOfMemoryError: Metaspace[0m
+[0m[[0m[31merror[0m] [0m[0mTo best utilize classloader caching and to prevent file handle leaks, we recommend running sbt without a MaxMetaspaceSize limit.  If this error occurred during a test or run evaluation, it can be caused by the choice of ClassLoaderLayeringStrategy. Of the available strategies, ClassLoaderLayeringStrategy.ScalaLibrary will typically use the least metaspace.  To change the layering strategy for this session, run:[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0mset ThisBuild / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.ScalaLibrary[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0mjava.lang.OutOfMemoryError: Metaspace[0m
+[0m[[0m[31merror[0m] [0m[0mjava.lang.OutOfMemoryError: Metaspace[0m
+[0m[[0m[31merror[0m] [0m[0mUse 'last' for the full log.[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
+[0m[[0m[31merror[0m] [0m[0mserver failed to start on local:///afs/inf.ed.ac.uk/user/s22/s2210057/.sbt/1.0/server/a63029813fa080009bf2/sock. java.io.IOException: org.scalasbt.ipcsocket.NativeErrorException: [1] Operation not permitted[0m

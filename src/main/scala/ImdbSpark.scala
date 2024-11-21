@@ -46,7 +46,7 @@ object ImdbSpark {
   }
 
   /**
-   * Task 1: Genre Growth Analysis
+   * Genre Growth Analysis
    * Find the top 5 genres that have experienced the most growth in popularity
    * between 1990-2000 and 2010-2020 periods.
    * Only consider movies and TV shows.
@@ -56,51 +56,41 @@ object ImdbSpark {
    *         - Int is the growth in number of titles
    */
   def task1(rdd: RDD[TitleBasics]): RDD[(String, Int)] = {
-    // TODO: Implement this task
     // Expected output example:
     // List((Drama,3504), (Documentary,2883), (Comedy,2439), (Horror,909), (Thriller,854))
-    rdd
-    // Step 1: Filter titles
-    .filter(title =>
+    // Filter titles for valid movies and TV shows within the specified year ranges
+  val filteredTitles = rdd.filter(title =>
       title.startYear.isDefined &&
-      (title.titleType.contains("movie") || title.titleType.contains("tvSeries")) &&
+      title.titleType.exists(tt => tt == "movie" || tt == "tvSeries") && 
       title.genres.isDefined
     )
-    // Step 2: Map each genre to a (genre, timePeriod) pair with a count of 1
-    .flatMap(title => {
-      val period = title.startYear.get match {
-        case year if 1990 <= year && year <= 2000 => Some("1990-2000")
-        case year if 2010 <= year && year <= 2020 => Some("2010-2020")
-        case _ => None
-      }
-      period match {
-        case Some(p) => title.genres.get.map(genre => ((genre, p), 1))
-        case None => Seq.empty
-      }
-    })
-    // Step 3: Aggregate counts
-    .reduceByKey(_ + _)
-    // Step 4: Transform to (genre, (count1990_2000, count2010_2020))
-    .map { case ((genre, period), count) =>
-      (genre, period match {
-        case "1990-2000" => (count, 0)
-        case "2010-2020" => (0, count)
-      })
+  // Assign weights based on the year range: -1 for 1990-2000 and 1 for 2010-2020
+  val genreWithWeights = filteredTitles.flatMap { title =>
+    val year = title.startYear.get
+    val weight = if (year >= 1990 && year <= 2000) -1 else if (year >= 2010 && year <= 2020) 1 else 0
+
+    if (weight != 0) {
+      title.genres.getOrElse(List()).map(genre => (genre, weight))
+    } else {
+      Seq.empty
     }
-    .reduceByKey((a, b) => (a._1 + b._1, a._2 + b._2)) // Combine counts for each genre
-    // Step 5: Calculate growth
-    .mapValues { case (count1990_2000, count2010_2020) =>
-      count2010_2020 - count1990_2000
-    }
-    // Step 6: Sort and limit to top 5 genres
-    .sortBy(_._2, ascending = false)
-    .zipWithIndex() // Add index to retain top 5
-    .filter(_._2 < 5) // Filter only the top 5
-    .map(_._1) // Remove the index
+  }
+
+  val genreGrowth = genreWithWeights
+    .reduceByKey(_ + _) // Sum the weights for each genre
+
+  // Sort genres by their growth (descending) and take the top 5
+  val topGenres = genreGrowth
+    .sortBy(_._2, ascending = false) // Sort by growth values in descending order
+
+  val top5Genres = topGenres.take(5)
+
+  // Convert to RDD and return
+  sc.parallelize(top5Genres)
   }
 
   /**
-   * Task 2: Genre Ratings by Decade
+   * Genre Ratings by Decade
    * Identify top 3 genres for each decade based on weighted average ratings.
    * Exclude genres with fewer than 5 entries in each decade.
    *
@@ -109,92 +99,53 @@ object ImdbSpark {
    *         - List contains tuples of (genre_name, weighted_average_rating)
    */
   def task2(l1: RDD[TitleBasics], l2: RDD[TitleRatings]): RDD[(Int, List[(String, Float)])] = {
-    // TODO: Implement this task
     // Expected output format example for one decade:
     // (1990, List((History,8.594199), (Biography,8.496143), (Drama,8.360406)))
-    // Step 1: Map titles to (decade, genre, tconst)
-  val titleWithDecadeAndGenre = l1
-    .filter(title =>
-      title.startYear.isDefined &&
-      (title.titleType.contains("movie") || title.titleType.contains("tvSeries")) &&
-      title.genres.isDefined
-    )
-    .flatMap(title => {
-      val decade = title.startYear.get match {
-        case year if year >= 1900 && year < 1910 => Some(1900)
-        case year if year >= 1910 && year < 1920 => Some(1910)
-        case year if year >= 1920 && year < 1930 => Some(1920)
-        case year if year >= 1930 && year < 1940 => Some(1930)
-        case year if year >= 1940 && year < 1950 => Some(1940)
-        case year if year >= 1950 && year < 1960 => Some(1950)
-        case year if year >= 1960 && year < 1970 => Some(1960)
-        case year if year >= 1970 && year < 1980 => Some(1970)
-        case year if year >= 1980 && year < 1990 => Some(1980)
-        case year if year >= 1990 && year < 2000 => Some(1990)
-        case year if year >= 2000 && year < 2010 => Some(2000)
-        case year if year >= 2010 && year <= 2020 => Some(2010)
-        case _ => None
-      }
+  val numPartitions = 10 // Adjust based on your cluster configuration
 
-      decade match {
-        case Some(d) =>
-          // For each genre, map to (decade, genre, tconst)
-          title.genres.get.map(genre => (d, genre, title.tconst))
-        case None => Seq.empty
-      }
-    })
+  val titlesByDecadeAndGenre = l1
+    .filter(title => title.startYear.getOrElse(0) >= 1900 && title.startYear.getOrElse(0) < 2030)
+    .flatMap(title => title.genres.map(genre => (title.tconst, ((title.startYear.getOrElse(0) / 10) * 10, genre))))
+    .partitionBy(new HashPartitioner(numPartitions)) // Repartition by `tconst` for efficient join
 
-  // Step 2: Map titleRatings to (tconst -> (averageRating, numVotes)) format
-  val titleRatings = l2.map(rating => (rating.tconst, (rating.averageRating, rating.numVotes)))
+  val titleIDsSet = titlesByDecadeAndGenre.map(_._1).collect().toSet
 
-  // Step 3: Join titles with ratings by tconst
-  val titleWithRatings = titleWithDecadeAndGenre
-    .map { case (decade, genre, tconst) => (tconst, (decade, genre)) } // (tconst, (decade, genre))
-    .join(titleRatings) // Join to get (tconst, ((decade, genre), (avgRating, numVotes)))
+  // Prepare ratings by tconst
+  val ratingsByTconst = l2
+    .filter(rating => titleIDsSet.contains(rating.tconst))
+    .map(r => (r.tconst, (r.averageRating, r.numVotes)))
 
-  // Step 4: Calculate weighted sum and totalVotes for each genre in each decade
-  val genreWithWeightedAvg = titleWithRatings
-    .map { case (_, ((decade, genre), (averageRating, numVotes))) =>
-      // Return (decade, genre) -> (weightedSum, totalVotes)
-      ((decade, genre), (averageRating * numVotes, numVotes))
-    }
-    .reduceByKey { case ((sum1, count1), (sum2, count2)) =>
-      (sum1 + sum2, count1 + count2) // Combine weighted sums and vote counts
-    }
-    .map { case ((decade, genre), (weightedSum, totalVotes)) =>
-      // Only calculate weighted average for genres with at least 5 votes
-      if (totalVotes >= 5) {
-        Some((decade, genre, weightedSum / totalVotes))  // (decade, genre, weighted avg)
-      } else {
-        None
-      }
-    }
-    .filter(_.isDefined) // Remove None values
-    .map(_.get) // Unwrap the Some to get the final result
+  // Join titles with ratings
+  val joinedTitlesRatings = titlesByDecadeAndGenre.join(ratingsByTconst.partitionBy(new HashPartitioner(numPartitions)))
 
-  // Step 5: Group by decade
-  val groupedByDecade = genreWithWeightedAvg
-    .groupBy(_._1) // Group by decade (decade, genre, weightedAvg)
+  // Calculate weighted ratings per genre for each decade
+  val weightedGenreRatings = joinedTitlesRatings.flatMap { case (_, ((decade, genres), (averageRating, numVotes))) =>
+    genres.map(genre => ((decade, genre), (averageRating * numVotes, numVotes, 1)))
+  }
 
-  // Step 6: Sort genres by weighted average within each decade and take top 3
-  val topGenresByDecade = groupedByDecade
-    .mapValues { genres =>
-      // Sort by weighted average in descending order and take the top 3 genres
-      genres
-        .toList // Convert to List so we can sort it
-        .sortBy(-_._3) // Sort by weighted average rating in descending order
-        .take(3) // Take the top 3 genres
-        .map { case (_, genre, rating) => (genre, rating) } // Format as (genre, rating)
-    }
-    // Step 7: Sort the decades in ascending order
-    .sortBy(_._1) // Sort by the decade in ascending order
+  // Aggregate weighted ratings and counts per decade and genre
+  val aggregatedRatingsCounts = weightedGenreRatings.reduceByKey { case ((sumRating1, sumVotes1, count1), (sumRating2, sumVotes2, count2)) =>
+    (sumRating1 + sumRating2, sumVotes1 + sumVotes2, count1 + count2)
+  }
 
-  // Final output: RDD[(Int, List[(String, Float)])]
-  topGenresByDecade
+  val filteredRatings = aggregatedRatingsCounts.filter { case (_, (_, _, count)) => count >= 5 }
+
+  // Calculate the average rating for each genre in each decade
+  val averageRatingsGenre = filteredRatings.map { case ((decade, genre), (sumWeightedRating, sumNumVotes, _)) =>
+    (decade, (genre, (sumWeightedRating / sumNumVotes).toFloat))
+  }
+
+  // Aggregate top 3 genres by average rating for each decade
+  val topGenresByDecade = averageRatingsGenre.aggregateByKey(List.empty[(String, Float)])(
+    (list, genreRating) => (genreRating :: list).sortBy(-_._2).take(3),
+    (list1, list2) => (list1 ++ list2).sortBy(-_._2).take(3)
+  )
+
+  topGenresByDecade.sortByKey()
   }
 
   /**
-   * Task 3: Top Directors
+   * Top Directors
    * Find directors with highest average ratings for their films.
    * Consider only directors with at least 3 films rated above 8.5 with 10,000+ votes.
    *
@@ -203,60 +154,53 @@ object ImdbSpark {
    *         - Float is their average rating
    */
   def task3(l1: RDD[NameBasics], l2: RDD[TitleRatings], l3: RDD[TitleCrew]): RDD[(String, Float)] = {
-    // TODO: Implement this task
     // Expected output example:
     // List((Tetsurô Araki,9.2), (Matt Shakman,9.066667))
-    val highRatedTitles = l2
-  .filter(rating => rating.averageRating > 8.5 && rating.numVotes >= 10000)
-  .map(rating => (rating.tconst, rating.averageRating)) // (tconst, averageRating)
+  val numPartitions = 10
+  val highRatedTitles = l2
+    .filter(rating => rating.averageRating > 8.5 && rating.numVotes >= 10000)
+    .map(rating => (rating.tconst, rating.averageRating)) // (tconst, averageRating)
 
-// Step 2: Map TitleCrew to (tconst, directorId)
-val titleToDirectors = l3
-  .filter(crew => crew.directors.isDefined) // Only keep titles with directors
-  .flatMap(crew => crew.directors.get.map(directorId => (crew.tconst, directorId))) // Expand directors
+  // Map TitleCrew to (tconst, directorId)
+  val titleToDirectors = l3
+    .filter(crew => crew.directors.isDefined) 
+    .flatMap(crew => crew.directors.get.map(directorId => (crew.tconst, directorId))) 
 
-// Step 3: Join highRatedTitles with titleToDirectors
-val directorRatings = highRatedTitles
-  .join(titleToDirectors) // (tconst, (averageRating, directorId))
-  .map { case (_, (averageRating, directorId)) => (directorId, (averageRating, 1)) } // (directorId, (rating, 1))
+  // Join highRatedTitles with titleToDirectors
+  val directorRatings = highRatedTitles
+    .join(titleToDirectors) 
+    .map { case (_, (averageRating, directorId)) => (directorId, (averageRating, 1)) }.partitionBy(new HashPartitioner(numPartitions)) // (directorId, (rating, 1))
 
-// Step 4: Aggregate ratings and counts using reduceByKey
-val aggregatedRatings = directorRatings
-  .reduceByKey { case ((sumRatings1, count1), (sumRatings2, count2)) =>
+  val aggregatedRatings = directorRatings.reduceByKey({ case ((sumRatings1, count1), (sumRatings2, count2)) =>
     (sumRatings1 + sumRatings2, count1 + count2)
-  } // (directorId, (sumRatings, count))
+  }) 
+  // Filter directors with at least 3 movies and calculate average rating
+  val directorsWithRatings = aggregatedRatings
+    .filter { case (_, (_, count)) => count >= 3 } 
+    .mapValues { case (sumRatings, count) => sumRatings / count } 
 
-// Step 5: Filter directors with at least 3 movies and calculate average rating
-val directorsWithRatings = aggregatedRatings
-  .filter { case (_, (_, count)) => count >= 3 } // Keep directors with at least 3 movies
-  .mapValues { case (sumRatings, count) => sumRatings / count.toFloat } // Calculate average rating
+  val directorIdToName = l1
+    .filter(name => name.primaryName.isDefined) 
+    .map(name => (name.nconst, name.primaryName.get)) 
 
-// Step 6: Map NameBasics to (directorId, directorName) and filter out None
-val directorIdToName = l1
-  .filter(name => name.primaryName.isDefined) // Keep only defined names
-  .map(name => (name.nconst, name.primaryName.get)) // (nconst, primaryName)
+  // Join directorsWithRatings with director names
+  val directorsWithNamesAndRatings = directorsWithRatings
+    .join(directorIdToName) 
+    .map { case (_, (averageRating, directorName)) => (directorName, averageRating) } 
 
-// Step 7: Join directorsWithRatings with director names
-val directorsWithNamesAndRatings = directorsWithRatings
-  .join(directorIdToName) // (directorId, (averageRating, directorName))
-  .map { case (_, (averageRating, directorName)) => (directorName, averageRating) } // (directorName, averageRating)
+  // Sort by average rating (descending), then by name (alphabetically)
+  val sortedDirectors = directorsWithNamesAndRatings
+    .sortBy({ case (directorName, averageRating) => (-averageRating, directorName) })
 
-// Step 8: Sort by average rating (descending), then by name (alphabetically)
-val sortedDirectors = directorsWithNamesAndRatings
-  .sortBy({ case (directorName, averageRating) => (-averageRating, directorName) })
+  val topDirectors = sortedDirectors.take(10)
 
-// Step 9: Take the top 10 and convert to RDD
-val topDirectors = sortedDirectors.take(10)
+  val topDirectorsRDD = sc.parallelize(topDirectors)
 
-// Use the Spark context from l1 (or any RDD) to parallelize the result
-val topDirectorsRDD = l1.sparkContext.parallelize(topDirectors)
-
-// Return the final RDD
-topDirectorsRDD
+  topDirectorsRDD
   }
 
   /**
-   * Task 4: Prolific Crew Members
+   * Prolific Crew Members
    * Identify top 10 most prolific crew members across specific time periods.
    * Consider contributions in 1995-2000, 2005-2010, and 2015-2020.
    *
@@ -265,10 +209,48 @@ topDirectorsRDD
    *         - Int is their total number of unique contributions
    */
   def task4(l1: RDD[TitleBasics], l2: RDD[NameBasics], l3: RDD[TitleCrew]): RDD[(String, Int)] = {
-    // TODO: Implement this task
     // Expected output example:
     // List((Marco Romano,12), (Jordan Hill,12), ..., (Tony Newton,8))
-    ???
+  val numPartitions = 10
+  val filteredMovies = l1.filter { movie =>
+  movie.startYear.exists(year => (year >= 1995 && year <= 2000) ||
+                                  (year >= 2005 && year <= 2010) ||
+                                  (year >= 2015 && year <= 2020))
+  }.map(movie => (movie.tconst, movie.startYear))
+
+  // Create a set of filtered movie IDs for efficient lookup
+  val filteredMovieIds = filteredMovies.map(_._1).collect().toSet
+
+  // Filter crew data to include only valid movies
+  val relevantCrew = l3.filter(crew => filteredMovieIds.contains(crew.tconst))
+
+  val crewMoviePairs = relevantCrew.flatMap { crew =>
+    val directorMoviePairs = crew.directors.getOrElse(List.empty).map(directorId => (directorId, crew.tconst))
+    val writerMoviePairs = crew.writers.getOrElse(List.empty).map(writerId => (writerId, crew.tconst))
+    directorMoviePairs ::: writerMoviePairs
+  }.distinct() 
+
+  val crewMovieCounts = crewMoviePairs
+    .map { case (nconst, _) => (nconst, 1) }
+    .reduceByKey(_ + _) // Aggregate counts by crew member
+
+  // Map crew IDs (nconst) to their names
+  val crewIdToNameRDD = l2
+    .map(name => (name.nconst, name.primaryName.getOrElse("")))
+    .partitionBy(new HashPartitioner(numPartitions))
+
+  // Join crew movie counts with crew names
+  val crewWithNamesAndCounts = crewMovieCounts.join(crewIdToNameRDD)
+
+  val sortedCrewWithCounts = crewWithNamesAndCounts
+    .map { case (_, (count, name)) => (name, count) }
+    .sortBy { case (name, count) => (-count, name) }
+
+  // Collect the top 10 results and convert to an RDD
+  val topCrewList = sortedCrewWithCounts.take(10)
+  val topCrewRDD = sc.parallelize(topCrewList)
+
+  topCrewRDD
   }
 
   def timed[T](label: String, code: => T): T = {

@@ -1,0 +1,9 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(test, Some(ae2265e2-09d5-4160-ae01-5095b6ca0627), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / test[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[33mwarn[0m] [0m[0mjavaOptions will be ignored, fork is set to false[0m
+[0m[[0m[31merror[0m] [0m[0mCaught java.lang.OutOfMemoryError: Metaspace[0m
+[0m[[0m[31merror[0m] [0m[0mTo best utilize classloader caching and to prevent file handle leaks, we recommend running sbt without a MaxMetaspaceSize limit.  If this error occurred during a test or run evaluation, it can be caused by the choice of ClassLoaderLayeringStrategy. Of the available strategies, ClassLoaderLayeringStrategy.ScalaLibrary will typically use the least metaspace.  To change the layering strategy for this session, run:[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0mset ThisBuild / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.ScalaLibrary[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
